@@ -1,14 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jeremydesvaux
- * Date: 22/09/2016
- * Time: 11:42
- */
 
 namespace WonderWp\Theme\Child\Service;
 
-
+use Symfony\Component\HttpFoundation\Cookie;
+use WonderWp\Framework\HttpFoundation\Request;
+use WonderWp\Theme\Child\Components\Loader\Loadercomponent;
 use WonderWp\Theme\Core\Component\NotificationComponent;
 use WonderWp\Theme\Core\Service\ThemeHookService;
 
@@ -24,6 +20,7 @@ class ChildThemeHookService extends ThemeHookService
         add_action( 'wp_footer', array($this,'loadJsonTpls'));
         //Disable visual editor
         add_filter('user_can_richedit', '__return_false', 50);
+        add_action('wp_loaded', [$this, 'setHasCookie']);
     }
 
     public function includeMailTemplate($mailBody){
@@ -47,9 +44,22 @@ class ChildThemeHookService extends ThemeHookService
         $templates['notification'] = NotificationComponent::$template;
 
         //Loaders
-        $loaderComp = new \WonderWp\Theme\Components\Loadercomponent();
+        $loaderComp = new Loadercomponent();
         $templates['loaders'] = $loaderComp->getTemplates();
 
         echo'<script type="content/json" id="jsTemplates">'.json_encode($templates).'</script>';
+    }
+
+    public function setHasCookie()
+    {
+        $request    = Request::getInstance();
+        $cookieName = 'AcceptsCookie';
+        $setCookie  = $request->getSession()->get($cookieName);
+
+        if (!empty($setCookie)) {
+            $cookie = new Cookie($cookieName, true, time() + (60 * 60 * 24 * 7 * 30 * 6)); //Expires in 6 months
+            setcookie($cookie->getName(), $cookie->getValue(), $cookie->getExpiresTime());
+            $request->getSession()->set($cookieName, '');
+        }
     }
 }

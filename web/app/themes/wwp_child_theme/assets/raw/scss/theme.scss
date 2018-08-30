@@ -1,4 +1,14 @@
 @import '../../../styleguide/scss/main';
-@import '../../final/svg/view/sprite';
+@import '/../../../includes/Components/components';
+@import "selectric";
+@import "pikaday";
 @import 'layout';
-
+@import "header1";
+@import "footer";
+@import "menu_header";
+@import "menu_mobile";
+@import "menu_footer";
+@import "items_list";
+@import "emploi_list";
+@import "faq_list";
+@import "pages/contact";
