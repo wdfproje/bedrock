@@ -7,36 +7,38 @@
 /* ------------- */
 
 ul.header-menu {
-    display: block;
-    text-align: left;
+  display: block;
+  text-align: left;
+  position: relative;
+  width: 100%;
+  margin-bottom: 0;
+
+  &, ul {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  li > a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 20px;
+    color: $menu-item-color;
+    background-color: $menu-item-bgcolor;
+    text-decoration: none;
     position: relative;
-    width: 100%;
-    margin-bottom: 0;
+    cursor: pointer;
+  }
 
-    &, ul {
-        padding-left: 0;
-        list-style: none;
-    }
+  ul.children {
+    background-color: $menu-item-bgcolor;
+  }
 
-    li > a {
-        display: block;
-        padding: 20px;
-        color: $menu-item-color;
-        background-color: $menu-item-bgcolor;
-        text-decoration: none;
-        position: relative;
-        cursor: pointer;
+  li.current_page_ancestor,
+  li.current_page_item {
+    > a {
+      color: $menu-item-color-active;
+      background-color: $menu-item-bgcolor-active;
     }
-
-    ul.children {
-        background-color: $menu-item-bgcolor;
-    }
-
-    li.current_page_ancestor,
-    li.current_page_item {
-        > a {
-            color: $menu-item-color-active;
-            background-color: $menu-item-bgcolor-active;
-        }
-    }
+  }
 }

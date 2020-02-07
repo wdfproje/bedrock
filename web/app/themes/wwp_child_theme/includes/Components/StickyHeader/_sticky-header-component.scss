@@ -1,0 +1,31 @@
+/******************
+    Variables
+******************/
+$header-height: 70px;
+$header-sticked-height: 45px;
+
+body {
+  padding-top: $header-height;
+
+  //When sticky is activated
+  &.is-sticky {
+    padding-top: $header-sticked-height;
+  }
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: $header-height;
+  width: 100%;
+
+  //When sticky is activated
+  body.is-sticky & {
+    height: $header-sticked-height;
+  }
+
+  @media (max-width: $small - 1) {
+    display: block;
+  }
+}
