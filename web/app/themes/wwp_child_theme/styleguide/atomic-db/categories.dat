@@ -1,0 +1,14 @@
+[
+    {
+        "category": "base",
+        "order": 0
+    },
+    {
+        "category": "components",
+        "order": 3
+    },
+    {
+        "category": "atoms",
+        "order": 1
+    }
+]

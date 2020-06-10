@@ -1,0 +1,432 @@
+@import 'pikaday';
+@import 'selectric';
+
+/* Variables */
+/* ------------- */
+/*In variables.sccs car utilisés à d'autres endroits du site*/
+
+
+/// Styles for Atomics
+#forms + p + .component {
+  max-width: 1000px;
+}
+
+form {
+  &.wwpform {
+    padding: $forms-padding;
+    background-color: $forms-bgcolor;
+  }
+
+  ul, ol {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  fieldset {
+    border: 1px solid $input-bgcolor;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    line-height: 1.2;
+    font-size: $input-font-size !important;
+    color: $input-color !important;
+    background-color: $input-bgcolor;
+    border: none;
+  }
+
+  input {
+    height: $input-height;
+    padding-right: 5rem;
+  }
+
+  [type="color"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="email"],
+  [type="month"],
+  [type="number"],
+  [type="password"],
+  [type="search"],
+  [type="tel"],
+  [type="text"],
+  [type="time"],
+  [type="url"],
+  [type="week"],
+  select,
+  textarea {
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      height: $input-height; //Pour IE
+    }
+    min-height: $input-height;
+    padding: 0.5rem 4rem .5rem 1rem;
+    box-shadow: $input-box-shadow;
+  }
+
+  // reset knacss
+  input[type=file] {
+    font-size: inherit;
+  }
+
+  label {
+    color: $label-color;
+  }
+
+  legend {
+    color: $label-color;
+  }
+
+  ::placeholder {
+    letter-spacing: 0;
+    color: $placeholder-color;
+    font-size: $placeholder-font-size;
+    line-height: normal; // Vertical center for iOS
+  }
+
+  ::-moz-placeholder {
+    line-height: 44px; //Préciser valeur en pixels pour centrage vertical sur Firefox
+  }
+
+  textarea {
+    min-height: $textarea-height;
+    padding-top: 14px;
+  }
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+// Custom SELECT
+.select-wrap {
+  width: 100%;
+}
+
+.select-style {
+
+  select {
+    height: $input-height;
+    width: 100%;
+  }
+
+  label.error {
+    display: none;
+  }
+}
+
+// Custom SELECT with Selectric
+/*Variables
+à modifier directement dans le fichier selectric.scss
+*/
+
+.selectric-wrapper { //Add wrapper pour forcer override des styles
+
+  .selectric {
+    border: none;
+    box-shadow: $input-box-shadow;
+
+    .button {
+      display: flex;
+      width: $input-height;
+      min-width: auto;
+      padding: 0;
+      font: none;
+      background-color: transparent;
+      appearance: none;
+      box-shadow: none;
+
+      &::before {
+        @include svgIcon('chevron-bottom-s');
+      }
+
+      &::after {
+        content: none;
+      }
+    }
+  }
+}
+
+
+@media (max-width: $medium - 1) {
+
+  .selectric {
+    padding-left: 2rem;
+
+    .label {
+      margin-right: 1rem;
+    }
+
+    .button {
+      width: $input-height;
+    }
+  }
+}
+
+
+// Custom RADIO + CHECKBOX + SWITCH
+.switch-wrap,
+.checkbox-wrap,
+.radio-wrap {
+  display: flex;
+  align-items: flex-start;
+}
+
+.switch,
+.checkbox,
+.radio {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: $input-box-shadow;
+  appearance: none;
+
+  ~ label {
+    margin-bottom: 0;
+    padding-top: 1px;
+    font-size: $input-font-size;
+  }
+}
+
+.checkbox,
+.radio {
+  width: $checkbox-size;
+  height: $checkbox-size;
+  margin-right: 1rem;
+  transition: background-color .15s;
+
+  &:checked {
+    background-color: white !important;
+    background-image: none;
+
+    &::before {
+      content: "";
+      display: block;
+      height: 10px;
+      width: 10px;
+      background-color: $checkbox-color;
+    }
+  }
+
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    &:checked {
+      background-color: $color-base !important;
+      background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTYuNCwxTDUuNywxLjdMMi45LDQuNUwyLjEsMy43TDEuNCwzTDAsNC40bDAuNywwLjdsMS41LDEuNWwwLjcsMC43bDAuNy0wLjdsMy41LTMuNWwwLjctMC43TDYuNCwxTDYuNCwxeiINCgkvPg0KPC9zdmc+DQo=) !important;
+    }
+  } /*IE 10-11*/
+}
+
+.radio {
+  border-radius: 50%;
+
+  &:checked::before {
+    border-radius: 50%;
+  }
+}
+
+//SUBMIT button
+[type="submit"] {
+  @extend .btn--primary;
+  justify-content: center;
+  height: $input-height;
+  min-height: $input-height;
+}
+
+// Fieldset with inline (dates…)
+fieldset.inline {
+  margin: 0;
+  padding: 0;
+
+  .form-group {
+    display: inline-block;
+    margin-right: 5%;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+// For before fields
+.form-before-fields {
+  grid-column: 1 / -1;
+  margin-bottom: 1rem;
+  flex: 1 1 100% !important;
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+// Help messages
+.help {
+  margin-top: 1rem;
+
+  span {
+    display: block;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: $label-color;
+    line-height: 1.2;
+  }
+}
+
+// Error messages (More in styleguide/atoms/alert)
+input[type="text"]:required:valid,
+input[type="number"]:required:valid {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAALCAYAAABPhbxiAAAABGdBTUEAALGPC/xhBQAAAOFJREFUKBVjZCASzJmjrPP7z9+NDIyMKzLT71czEqMPrOnvv30M//+LgtQzMjOmMBHSiK4JqP47w1/ma2CNQEmVmTOV+NENwaaJmYnJLyPjznEmoAbvP3//Xf3////puXPVpWCacWlKS7u3B6SGccYMhSf/GRikwRwGxtusrGwOf/78Fv7H8H8vzE9Aue8gm2CaQGqZGBkZqoH0PxDnP8N/1V9/fh0kpAmkFhyq02cpJzD8+zsXyEcPLAybQJpAAB4dWDTj1ISiEcRB0vwT3U8gebxgxgwl59mzlY3xKgJKAgDWBHhtFDswJQAAAABJRU5ErkJggg==');
+  background-position: calc(100% - 2rem) center;
+  background-repeat: no-repeat;
+}
+
+form {
+  label.error {
+    font-size: .9em;
+    font-style: italic;
+    color: $alert-error !important;
+  }
+
+  input.error {
+    color: $alert-error !important;
+    background-color: $alert-error-bg !important;
+  }
+}
+
+.form-errors {
+  margin-bottom: 4rem;
+  padding: 15px;
+  font-size: 2rem;
+  color: $alert-error;
+  background-color: $alert-error-bg;
+  border-bottom: 4px solid $alert-error;
+}
+
+.has-error {
+  input {
+    border: 1px solid $alert-error;
+  }
+
+  .label-error {
+    color: $alert-error;
+  }
+}
+
+
+/*
+Form options (gutenberg ?)
+*/
+
+// Hidden labels
+.form-nolabel {
+  form div.form-group:not(.checkbox-wrap):not(.radio-wrap) label {
+    @extend .visually-hidden;
+  }
+}
+
+/*Présentation sur en ligne*/
+$form-gutter: 5px;
+
+.form-inline {
+
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -$form-gutter;
+    margin-left: -$form-gutter;
+
+    > div {
+      flex: 1 1 auto;
+      margin: $form-gutter;
+    }
+
+    > .form-group {
+      display: flex;
+    }
+
+    .checkbox-wrap,
+    .radio-wrap,
+    .textarea-wrap {
+      flex-basis: 100%;
+    }
+
+    .rgpd-consent-wrap {
+      order: 1;
+    }
+  }
+
+  @media (max-width: $medium - 1) {
+
+    form {
+      display: block;
+
+      > div {
+        width: 100% !important;
+        margin: 1rem 0;
+      }
+
+      .field-group {
+        margin-bottom: 2rem;
+      }
+
+      .form-group:not(.checkbox-wrap):not(.radio-wrap) {
+        display: block;
+        width: 100% !important;
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+      }
+
+      .selectric {
+        padding-left: 0;
+
+        .label {
+          margin-right: 1rem;
+        }
+
+        .button {
+          width: 45px;
+        }
+      }
+
+      .submitFormField {
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+        margin-left: 0;
+
+        .btn {
+          display: block;
+          width: auto !important;
+        }
+      }
+    }
+  }
+}
+
+
+/*Chosen styles override*/
+.chosen-container {
+  width: 100% !important;
+}
+
+.chosen-choices {
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    height: $input-height; //Pour IE
+  }
+  min-height: $input-height;
+  margin-top: 0 !important;
+  padding: 2px 5px;
+  box-shadow: none;
+
+  li.search-field {
+    height: $input-height - 8px;
+  }
+
+  li.search-field input[type="text"] {
+    font-family: $font-family-base;
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      height: $input-height - 8px; //Pour IE
+    }
+    min-height: $input-height - 8px;
+    padding: 0 4px;
+  }
+}

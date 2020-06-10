@@ -12,21 +12,53 @@
 .items-filters {
     margin-bottom: 4rem;
 
-    form {
-        padding: 4rem 4rem 2rem 4rem;
-        background-color: $gray-200;
-    }
-
     .form-group {
         margin-bottom: 2rem;
     }
 
-    .field-group {
-        @extend .autogrid;
+    .cat-wrap .field-group {
+        display: flex;
+        justify-content: space-around;
     }
 
     .submitFormField {
-        grid-column: auto/span 2;
         text-align: center;
     }
+}
+
+
+/* Default list parent style */
+/* ------------------------- */
+//Variables:
+$gutter  : 2rem; //Largeur gouttière
+$col     : 3; //Nombre de colonnes
+
+.items-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-left: 0;
+  list-style: none;
+  margin-right: -$gutter;
+  margin-left: -$gutter;
+
+  li, > .item {
+    width: calc(100% * 1 / #{$col} - #{$gutter * 2} - .01px);
+    margin-right: $gutter;
+    margin-left: $gutter;
+    margin-bottom: #{$gutter * 2};
+  }
+
+  @media (max-width: $medium - 1) {
+    display: block;
+    margin-right: 0;
+    margin-left: 0;
+
+    li, > .item {
+      width: 100%;
+      margin-right: 0;
+      margin-left: 0;
+      margin-bottom: $gutter;
+    }
+  }
 }

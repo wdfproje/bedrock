@@ -29,10 +29,12 @@
          */
         global $page, $paged;
 
-        echo stripslashes(wp_title('|', false, 'right'));
+        $pageTitle = stripslashes(wp_title('|', false, 'right'));
+        $pageTitle = str_replace(['|'], [' '], $pageTitle);
+        echo $pageTitle;
 
         // Add the blog name.
-        echo get_bloginfo('name');
+        echo ' | ' . get_bloginfo('name');
 
         // Add the blog description for the home/front page.
         if (is_home() || is_front_page()) {
@@ -52,35 +54,40 @@
     <?php wp_head(); ?>
 
     <script>
-        var domElt = window.document.documentElement;
-        if (domElt.classList.contains('no-js')) {
-            // The box that we clicked has a class of bad so let's remove it and add the good class
-            domElt.classList.remove('no-js');
+        if (window.criticalJsReady) {
+            criticalJsReady();
+        } else {
+            document.addEventListener('criticalJsReady', (e) => {
+                criticalJsReady();
+            });
         }
-        domElt.className += ' js-enabled';
+        criticalJsReady = function () {
+            window.wonderwp.FeatureDetector.runTests();
+        }
     </script>
 
 </head>
 
-<body <?php body_class(); ?>>
+<!--Ajouter la classe .stickable sur <body> pour rendre le header sticky-->
+<body <?php body_class(['stickable']); ?>>
 <div id="page" class="hfeed site">
-    <div class="skip-links"><a href="#content"><?php _e('Skip to content', 'wonderwp'); ?></a></div>
+    <div class="skip-links"><a href="#content"><?php echo trad('Skip to content', WWP_THEME_TEXTDOMAIN); ?></a></div>
 
-    <header id="header">
+    <header class="site-header" id="header" role="banner">
 
         <div class="inner-header">
 
-            <button class="wdf-burger nav-button" data-menu-toggler type="button" role="button" aria-label="open/close navigation"><i></i></button>
+            <button class="wdf-burger nav-button" data-menu-toggler type="button" aria-label="open/close navigation"><i></i></button>
 
             <?php
-            echo '<a href="/" class="logo">
-                <!--<img src="/app/themes/wwp_child_theme/assets/raw/svg/logo.svg" alt="Mon site - accueil">--> LOGO
+            echo '<a href="/" class="logo" aria-label="' . trad('back.to.home', WWP_THEME_TEXTDOMAIN) . '">
+                <!--<img src="/app/themes/wwp_child_theme/assets/raw/svg/logo.svg" alt="Mon site - accueil">--> <span>LOGO</span>
               </a>'
             ?>
 
-            <div class="navigation-wrapper">
+            <nav role="navigation" aria-label="Menu principal" class="navigation-wrapper">
 
-                <ul id="menu">
+                <ul class="header-menu" id="menu">
                     <?php
                     /** @var \WonderWp\Theme\Core\Service\ThemeViewService $viewService */
                     $viewService = wwp_get_theme_service('view');
@@ -89,7 +96,7 @@
                     ?>
                 </ul>
 
-            </div>
+            </nav>
 
             <?php
             /** @var \WonderWp\Theme\Core\Service\ThemeViewService $themeViewService */
@@ -100,4 +107,4 @@
         </div>
     </header>
 
-    <div id="content" class="site-content">
+    <div id="content" class="site-content transitionning">

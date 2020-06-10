@@ -3,7 +3,9 @@
 namespace WonderWp\Theme\Child\Service;
 
 use Symfony\Component\HttpFoundation\Cookie;
+use WonderWp\Component\DependencyInjection\Container;
 use WonderWp\Component\HttpFoundation\Request;
+use WonderWp\Component\Media\Medias;
 use WonderWp\Theme\Child\Components\Loader\Loadercomponent;
 use WonderWp\Theme\Core\Component\NotificationComponent;
 use WonderWp\Theme\Core\Service\ThemeHookService;
@@ -16,17 +18,19 @@ class ChildThemeHookService extends ThemeHookService
 
         //$viewService = $this->manager->getService(ServiceInterface::VIEW_SERVICE_NAME);
         //add_action( 'wwp_after_footer', array($viewService,'prepareCookies'));
-        add_filter('wwp.mailer.setBody', array($this,'includeMailTemplate'));
-        add_action( 'wp_footer', array($this,'loadJsonTpls'));
-        //Disable visual editor
-        add_filter('user_can_richedit', '__return_false', 50);
+        add_filter('wwp.mailer.setBody', [$this, 'includeMailTemplate']);
+        add_action('wp_footer', [$this, 'loadJsonTpls']);
         add_action('wp_loaded', [$this, 'setHasCookie']);
+        add_filter('jsonAssetsExporter.json', [$this, 'mergeSassFiles']);
+        add_filter('body_class', [$this, 'addBodyClassForPostThumb']);
+        add_action('wp_footer', [$this, 'deregisterWpEmbed']);
     }
 
-    public function includeMailTemplate($mailBody){
-        $templateContent='<body>##MAIL_CONTENT##</body>';
-        $templatePath = locate_template(['/templates/mail/default.php'],false,false);
-        if(file_exists($templatePath)){
+    public function includeMailTemplate($mailBody)
+    {
+        $templateContent = '<body>##MAIL_CONTENT##</body>';
+        $templatePath    = locate_template(['/templates/mail/default.php'], false, false);
+        if (file_exists($templatePath)) {
             ob_start();
             include($templatePath);
             $templateContent = ob_get_contents();
@@ -37,17 +41,18 @@ class ChildThemeHookService extends ThemeHookService
         return $mailContent;
     }
 
-    public function loadJsonTpls(){
-        $templates = array();
+    public function loadJsonTpls()
+    {
+        $templates = [];
 
         //Notifications
         $templates['notification'] = NotificationComponent::$template;
 
         //Loaders
-        $loaderComp = new Loadercomponent();
+        $loaderComp           = new Loadercomponent();
         $templates['loaders'] = $loaderComp->getTemplates();
 
-        echo'<script type="content/json" id="jsTemplates">'.json_encode($templates).'</script>';
+        echo '<script type="content/json" id="jsTemplates">' . json_encode($templates) . '</script>';
     }
 
     public function setHasCookie()
@@ -57,9 +62,56 @@ class ChildThemeHookService extends ThemeHookService
         $setCookie  = $request->getSession()->get($cookieName);
 
         if (!empty($setCookie)) {
-            $cookie = new Cookie($cookieName, true, time() + (60 * 60 * 24 * 7 * 30 * 6)); //Expires in 6 months
-            setcookie($cookie->getName(), $cookie->getValue(), $cookie->getExpiresTime());
+            $cookie = new Cookie($cookieName, true, time() + (60 * 60 * 24 * 30 * 6), '/'); //Expires in 6 months
+            setcookie($cookie->getName(), $cookie->getValue(), $cookie->getExpiresTime(), $cookie->getPath());
             $request->getSession()->set($cookieName, '');
         }
+    }
+
+    public function mergeSassFiles($json)
+    {
+
+        if (isset($json['css']['plugins'])) {
+            $pluginSassFiles = $json['css']['plugins'];
+            unset($json['css']['plugins']);
+
+            $pluginSassContent = '';
+            if (!empty($pluginSassFiles)) {
+                foreach ($pluginSassFiles as $pluginSassFile) {
+                    $pluginSassContent .= '@import "' . str_replace(['./web/app', '//', '.scss'], ['../../../../../..', '/', ''], $pluginSassFile) . '";' . "\n";
+                }
+            }
+
+            /** @var \WP_Filesystem_Direct $filesystem */
+            $pluginSassPath = get_stylesheet_directory() . '/assets/raw/scss/plugins/_vendors.scss';
+            $filesystem     = Container::getInstance()->offsetGet('wwp.fileSystem');
+            $written        = $filesystem->put_contents(
+                $pluginSassPath,
+                $pluginSassContent,
+                FS_CHMOD_FILE // predefined mode settings for WP files
+            );
+
+        }
+
+        return $json;
+    }
+
+    public function addBodyClassForPostThumb($classes)
+    {
+        global $post;
+        $featuredImg = is_object($post) ? Medias::getFeaturedImage($post->ID) : null;
+        if (!empty($featuredImg)) {
+            $classes[] = 'has-post-thumb';
+        } else {
+            $classes[] = 'has-no-post-thumb';
+        }
+
+        return $classes;
+    }
+
+    public function deregisterWpEmbed()
+    {
+        wp_deregister_script('wp-embed');
+        wp_deregister_script('admin-bar');
     }
 }

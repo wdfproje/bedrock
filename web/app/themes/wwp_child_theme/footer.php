@@ -12,11 +12,28 @@
 
 </div><!-- .site-content -->
 
-<?php do_action('wwp_before_footer'); ?>
+<div class="container-s">
+    <?php do_action('wwp_before_footer'); ?>
+</div>
 
-<footer id="colophon" class="site-footer">
+<footer id="colophon" class="site-footer" role="contentinfo">
     <div class="footer-content">
-        <?php wp_nav_menu(['theme_location' => 'footer-menu']); ?>
+        <?php
+        //Menu du footer
+        //Pour fonctionner automatiquement, creer un footer appelé Footer fr_FR pour la france dans apparence/menus dans le BO
+        $footerMenuName = 'Footer ' . get_locale();
+        if (is_nav_menu($footerMenuName)) {
+            echo '<nav role="navigation" aria-label="Menu secondaire">';
+                wp_nav_menu(['menu' => $footerMenuName]);
+            echo '</nav>';
+        }
+        ?>
+        <?php
+        //Liens vers les reseaux sociaux
+        //Decommenter les 2 lignes suivantes si vous souhaitez afficher le composant des liens vers les profils sociaux adminstres depuis le BO
+        //$rs = new \WonderWp\Theme\Child\Components\ReseauxSociaux\ReseauxSociauxComponent();
+        //echo $rs->getMarkup();
+        ?>
     </div><!-- .site-info -->
 </footer><!-- .site-footer -->
 

@@ -1,0 +1,210 @@
+[
+    {
+        "component": "colors",
+        "category": "base",
+        "description": "",
+        "backgroundColor": "",
+        "order": 0,
+        "has_js": "false"
+    },
+    {
+        "component": "fonts",
+        "category": "base",
+        "description": "",
+        "backgroundColor": "",
+        "order": 1,
+        "has_js": "false"
+    },
+    {
+        "component": "alerts",
+        "category": "atoms",
+        "description": "",
+        "backgroundColor": "",
+        "order": 4,
+        "has_js": "false"
+    },
+    {
+        "component": "breadcrumbs",
+        "category": "atoms",
+        "description": "",
+        "backgroundColor": "",
+        "order": 7,
+        "has_js": "false"
+    },
+    {
+        "component": "buttons",
+        "category": "atoms",
+        "description": "",
+        "backgroundColor": "",
+        "order": 3,
+        "has_js": "false"
+    },
+    {
+        "component": "excerpt",
+        "category": "atoms",
+        "description": "",
+        "backgroundColor": "",
+        "order": 1,
+        "has_js": "false"
+    },
+    {
+        "component": "titles",
+        "category": "atoms",
+        "description": "",
+        "backgroundColor": "",
+        "order": 0,
+        "has_js": "false"
+    },
+    {
+        "component": "icons",
+        "category": "atoms",
+        "description": "",
+        "backgroundColor": "",
+        "order": 6,
+        "has_js": "false"
+    },
+    {
+        "component": "loaders",
+        "category": "atoms",
+        "description": "",
+        "backgroundColor": "",
+        "order": 5,
+        "has_js": "false"
+    },
+    {
+        "component": "dropdown",
+        "category": "components",
+        "description": "",
+        "backgroundColor": "",
+        "order": 0,
+        "has_js": "false"
+    },
+    {
+        "component": "forms",
+        "category": "components",
+        "description": "",
+        "backgroundColor": "",
+        "order": 1,
+        "has_js": "false"
+    },
+    {
+        "component": "modals",
+        "category": "components",
+        "description": "",
+        "backgroundColor": "",
+        "order": 2,
+        "has_js": "false"
+    },
+    {
+        "component": "tabs",
+        "category": "components",
+        "description": "",
+        "backgroundColor": "",
+        "order": 3,
+        "has_js": "false"
+    },
+    {
+        "component": "slider",
+        "category": "components",
+        "description": "",
+        "backgroundColor": "",
+        "order": 4,
+        "has_js": "false"
+    },
+    {
+        "component": "text",
+        "category": "atoms",
+        "description": "",
+        "backgroundColor": "",
+        "order": -14,
+        "has_js": "false"
+    },
+    {
+        "component": "encadre",
+        "category": "atoms",
+        "description": "",
+        "backgroundColor": "",
+        "order": -16,
+        "has_js": "false"
+    },
+    {
+        "component": "citation",
+        "category": "atoms",
+        "description": "",
+        "backgroundColor": "",
+        "order": -17,
+        "has_js": "false"
+    },
+    {
+        "component": "lists",
+        "category": "atoms",
+        "description": "",
+        "backgroundColor": "",
+        "order": -18,
+        "has_js": "false"
+    },
+    {
+        "component": "cookies",
+        "category": "components",
+        "description": "",
+        "backgroundColor": "",
+        "order": -22,
+        "has_js": "false"
+    },
+    {
+        "component": "accordion",
+        "category": "components",
+        "description": "",
+        "backgroundColor": "",
+        "order": -20,
+        "has_js": "false"
+    },
+    {
+        "component": "images",
+        "category": "base",
+        "description": "Ajouter ici les principales tailles d'images du projet (Unes, plugins\u2026)",
+        "backgroundColor": "",
+        "order": -23,
+        "has_js": "false"
+    },
+    {
+        "component": "reseaux_sociaux",
+        "category": "components",
+        "description": "",
+        "backgroundColor": "",
+        "order": -22,
+        "has_js": "false"
+    },
+    {
+        "component": "progress_bar",
+        "category": "components",
+        "description": "",
+        "backgroundColor": "",
+        "order": -22,
+        "has_js": "false"
+    },
+    {
+        "component": "video_embed",
+        "category": "components",
+        "description": "",
+        "backgroundColor": "",
+        "order": -23,
+        "has_js": "false"
+    },
+    {
+        "component": "video_native",
+        "category": "components",
+        "description": "",
+        "backgroundColor": "",
+        "order": -24,
+        "has_js": "false"
+    },
+    {
+        "component": "card_item",
+        "category": "components",
+        "description": "",
+        "backgroundColor": "",
+        "order": -24,
+        "has_js": "false"
+    }
+]

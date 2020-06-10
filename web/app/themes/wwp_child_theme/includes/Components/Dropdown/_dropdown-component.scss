@@ -1,0 +1,79 @@
+$dropdown-height: auto;
+$trigger-height: 5rem;
+$trigger-color: white; //button
+$trigger-bgcolor: $color-primary; //button
+
+.wdf-dropdown {
+  height: $dropdown-height;
+  overflow: hidden;
+
+  &, .dropup {
+    position: relative;
+
+    &:after {
+      display: table;
+      content: " ";
+    }
+  }
+
+  // Trigger
+  .dropdown-trigger {
+    height: $trigger-height;
+    position: relative;
+    z-index: 1;
+
+    .button {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+      min-height: auto;
+      width: 100%;
+      margin: 0;
+      font-size: 1.7rem;
+      appearance: none;
+      border-radius: 0;
+      box-shadow: none;
+
+      &,
+      &:hover,
+      &:focus {
+        color: $trigger-color;
+        background-color: $trigger-bgcolor;
+      }
+    }
+  }
+
+  .dropdown-icon {
+    @include svgIcon('dropdown-icon');
+    transform-origin: center;
+    transform: rotate(180deg);
+    transition: all .4s;
+  }
+
+  // Content
+  .dropdown-content {
+    width: 100%;
+    padding-top: 2rem;
+    transform: translateY(calc(-100% - #{$trigger-height}));
+    transition: all .4s ease-in-out;
+
+    a.content {
+      text-decoration: none;
+    }
+  }
+
+  // Reveal
+  &.open {
+
+    .dropdown-icon {
+      transform: rotate(0deg);
+    }
+
+    .dropdown-content {
+      transform: translateY(0);
+    }
+  }
+
+}

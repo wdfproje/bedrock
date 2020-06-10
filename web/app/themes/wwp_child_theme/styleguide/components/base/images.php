@@ -1,3 +1,9 @@
-<!--components/base/images.php-->
+<!-- components/base/images.php -->
 
-<p>On peut ajouter ici les principales tailles d'images pour l'administration du projet</p>
+<p class="subtitle">Image à la une détail actualité : 1730x530px</p>
+<img width="1730" height="530" src="https://via.placeholder.com/1730x530" alt="">
+<hr>
+
+<p class="subtitle">Image thumbnail liste actualités : 298x450px</p>
+<img width="298" height="450" src="https://via.placeholder.com/298x450" alt="">
+<hr>

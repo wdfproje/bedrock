@@ -1,9 +1,6 @@
 {
     "name": "wonderwp/site",
     "type": "project",
-    "license": "MIT",
-    "description": "A modern WordPress stack",
-    "homepage": "https://roots.io/bedrock/",
     "authors": [
         {
             "name": "Jeremy Desvaux",
@@ -11,15 +8,13 @@
             "homepage": "https://github.com/jeremy-wdf"
         }
     ],
-    "keywords": [
-        "bedrock", "roots", "wordpress", "stack", "composer", "vagrant", "wp"
-    ],
     "config": {
         "preferred-install": {
             "wonderwp/*": "source",
             "agencewonderful/*": "source",
             "*": "dist"
-        }
+        },
+        "sort-packages": true
     },
     "repositories": [
         {
@@ -34,19 +29,20 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.2",
         "composer/installers": "~1.0.12",
-        "vlucas/phpdotenv": "^2.0.1",
+        "johnpbloch/wordpress": "^5.1",
         "oscarotero/env": "^1.0",
-        "johnpbloch/wordpress": "^4.7",
         "roots/wp-password-bcrypt": "1.0.0",
-        "wpackagist-plugin/cms-tree-page-view": "dev-trunk",
         "wpackagist-plugin/google-sitemap-generator": "dev-trunk",
-        "twig\/twig": "^2.0"
+        "wpackagist-plugin/secupress": "^1.4",
+        "wpackagist-plugin/wp-nested-pages": "^3.0",
+        "twig\/twig": "^2.0",
+        "vlucas/phpdotenv": "^2.0.1"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^2.5.1",
-        "wpackagist-plugin/debug-bar": "dev-trunk"
+        "phpunit\/phpunit": "^6",
+        "squizlabs/php_codesniffer": "^2.5.1"
     },
     "autoload": {
         "psr-4": {
