@@ -56,7 +56,7 @@ button {
   @extend %btn;
   color: white;
   background-color: var(--color-theme-primary);
-  box-shadow: 0 0 0 2px var(--color-theme-primary);
+  box-shadow: 0 0 0 2px var(--color-theme-primary), 0 0 -1px 1px var(--color-theme-primary);
 
   &:focus, .no-touch &:hover, &:active {
     color: var(--color-theme-primary);
