@@ -137,7 +137,7 @@ a[class*="btn"] {
   @extend .btn;
   color: white;
   background-color: $color-base;
-  box-shadow: 0 0 0 2px $color-base;
+  box-shadow: 0 0 0 2px $color-base, 0 0 -1px 1px var(--color-base);
 
   .no-touch &:hover,
   &:focus {
