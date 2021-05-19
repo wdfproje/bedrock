@@ -46,9 +46,11 @@ class AccordionComponent extends AbstractComponent
             foreach ($this->_blocks as $block) {
                 $idAttr = !empty($block['id']) ? 'id="' . $block['id'] . '"' : '';
                 $markup .= '
-                <span class="js-accordion__header" ' . (!empty($block['opened']) ? 'data-accordion-opened="true"' : '') . '>' . $block['title'] . '</span>
-                <div class="js-accordion__panel" ' . $idAttr . '>
-                    ' . $block['content'] . '
+                <div class="js-accordion__wrapper">
+                    <span class="js-accordion__header" ' . (!empty($block['opened']) ? 'data-accordion-opened="true"' : '') . '>' . $block['title'] . '</span>
+                    <div class="js-accordion__panel" ' . $idAttr . '>
+                        ' . $block['content'] . '
+                    </div>
                 </div>
                 ';
             }
@@ -57,5 +59,4 @@ class AccordionComponent extends AbstractComponent
 
         return $markup;
     }
-
 }
